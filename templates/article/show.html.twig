@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+
+        <title>{% block title %}Read: {{ title }}{% endblock %}</title>
+        <div class="row">
+                <div class="col-sm-12">
+                <div class="article-text">
+                        {{ article.getContent|raw }}
+                </div>
+                </div>
+        </div>
+        <span class="pl-2 article-details">
+            {% for tag in article.tags %}
+                    <span class="badge badge-secondary">{{ tag.name }}</span>
+            {% endfor %}
+        </span>
+        <h2>Comments ({{ article.nonDeletedComments|length }})</h2>
+        <ul>
+                {% for comment in article.nonDeletedComments %}
+
+                        <div class="row">
+                                <div class="col-sm-12">
+                                        <img class="comment-img rounded-circle" src="">
+                                        <div class="comment-container d-inline-block pl-3 align-top">
+                                                <span class="commenter-name">{{ comment.authorName }}</span>
+                                                {% if comment.isDeleted %}
+                                                        <span class="fa fa-close"></span> deleted
+                                                {% endif %}
+                                                <br>
+                                                <span class="comment"> {{ comment.content }}</span>
+                                                <p><a href="#">Reply</a></p>
+                                        </div>
+                                </div>
+                        </div>
+                {% endfor %}
+        </ul>
+{% endblock %}
